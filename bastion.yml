@@ -1,0 +1,6 @@
+- hosts: bastion
+  sudo: yes
+  user: Ryo
+  tasks:
+   - apt: update_cache=yes
+   - apt: name=emacs state=present
