@@ -15,6 +15,7 @@ alias ll="ls -l"
 alias lll="ls -l"
 alias la="ls -a"
 alias lal="ls -al"
+alias lla="ls -al"
 alias lt="ls -lt"
 alias ltr="ls -ltr"
 
