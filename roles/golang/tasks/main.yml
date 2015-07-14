@@ -1,0 +1,14 @@
+- get_url: url=https://storage.googleapis.com/golang/go{{ go_version }}.linux-amd64.tar.gz dest=/tmp/
+
+- file: path=/usr/local/src/golang_dist state=directory
+
+- file: path=/usr/local/src/golang_dist/go{{ go_version }} state=directory
+
+- unarchive: src=/tmp/go{{ go_version }}.linux-amd64.tar.gz dest=/usr/local/src/golang_dist/go{{ go_version }}
+
+- file: src=/usr/local/src/golang_dist/go{{ go_version }}/go path=/usr/local/go state=link
+
+- lineinfile:
+    line: "export PATH=$PATH:/usr/local/go/bin"
+    dest: /etc/profile.d/golang.sh
+    create: yes

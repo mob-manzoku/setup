@@ -4,3 +4,4 @@
   roles:
     - packages
     - dotfiles
+    - { tags: golang, role: golang, go_version: 1.4.2 }
