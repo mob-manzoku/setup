@@ -45,3 +45,8 @@
 (el-get-bundle go-autocomplete)
 (el-get-bundle go-eldoc)
 (el-get-bundle go-mode)
+(add-hook 'before-save-hook 'gofmt-before-save)
+
+
+;; Ansible
+(el-get-bundle yaml-mode)

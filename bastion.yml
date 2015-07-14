@@ -3,5 +3,5 @@
   user: Ryo
   roles:
     - packages
-    - dotfiles
+    - { tags: dotfiles, role: dotfiles }
     - { tags: golang, role: golang, go_version: 1.5beta1 }
