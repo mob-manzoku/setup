@@ -5,6 +5,7 @@
     - zshrc
     - zsh.d/
     - emacs.d/
+    - screenrc
     - gitconfig
 
 - file: path=~{{ ansible_ssh_user }}/.bak.emacs owner={{ ansible_ssh_user }} group={{ ansible_ssh_user }} state=directory
