@@ -1,0 +1,12 @@
+listen:
+  port: 80
+  user: nobody
+hosts:
+  "0.0.0.0":
+    paths:
+      /:
+        file.dir: /home/Ryo/webroot
+
+access-log: /tmp/access-log
+error-log: /tmp/error-log
+pid-file: /tmp/pid-file
