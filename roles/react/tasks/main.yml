@@ -1,0 +1,5 @@
+- apt: name=npm
+
+- npm: name={{ item }} global=yes
+  with_items:
+    - jsxhint
