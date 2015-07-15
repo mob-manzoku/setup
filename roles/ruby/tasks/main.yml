@@ -1,0 +1,8 @@
+- git: repo=https://github.com/sstephenson/rbenv.git
+       dest=~{{ ansible_ssh_user }}/.rbenv
+
+- git: repo=https://github.com/sstephenson/ruby-build.git
+       dest=~{{ ansible_ssh_user }}/.rbenv/plugins/ruby-build
+
+- file: path=~{{ ansible_ssh_user }}/.rbenv recurse=yes state=directory owner={{ ansible_ssh_user }} group={{ ansible_ssh_user }}
+  changed_when: False
