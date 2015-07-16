@@ -1,11 +1,27 @@
-listen:
-  port: 80
-  user: nobody
+user: nobody
+
 hosts:
   "0.0.0.0":
+    listen:
+      port: 80
     paths:
       /:
         file.dir: /home/Ryo/webroot
+      /api:
+        proxy.reverse.url: "http://127.0.0.1:8080/"
+
+  "0.0.0.0:443":
+    listen:
+      port: 443
+      ssl:
+        certificate-file: /etc/h2o/cert/dummy.crt
+        key-file: /etc/h2o/cert/dummy.key
+    paths:
+      /:
+        file.dir: /home/Ryo/webroot
+      /api:
+        proxy.reverse.url: "http://127.0.0.1:8080/"
+
 
 access-log: /tmp/access-log
 error-log: /tmp/error-log

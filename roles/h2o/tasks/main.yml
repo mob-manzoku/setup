@@ -35,3 +35,5 @@
 - copy: src=etc/h2o/h2o.yml dest=/etc/h2o/h2o.yml mode=0666
 
 - copy: src=etc/init/h2o.conf dest=/etc/init/h2o.conf mode=0755
+
+- copy: src=etc/h2o/cert/ dest=/etc/h2o/cert/
