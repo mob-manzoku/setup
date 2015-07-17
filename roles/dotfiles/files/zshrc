@@ -30,3 +30,5 @@ fi
 if [ -f ${HOME}/.zsh.d/zsh_git ]; then
     source ${HOME}/.zsh.d/zsh_git
 fi
+
+source ${HOME}/.zsh.d/peco-snippets

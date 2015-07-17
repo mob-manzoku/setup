@@ -3,3 +3,6 @@ export PATH="/home/mob-manzoku/scripts:/home/mob-manzoku/.cask/bin:$PATH"
 # Ruby rbenv
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
+
+# Golang bins
+export PATH="$HOME/.golang/bin:$PATH"

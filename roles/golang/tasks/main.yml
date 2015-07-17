@@ -19,7 +19,6 @@
 - shell: GOPATH=/usr/local/src/golang_gets /usr/local/go/bin/go get -u {{ item }}
   with_items:
     - github.com/nsf/gocode
-    - github.com/tools/godep
 
 - lineinfile:
     line: "export PATH=$PATH:/usr/local/go/bin:/usr/local/src/golang_gets/bin"
