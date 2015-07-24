@@ -2,4 +2,7 @@
 
 - npm: name={{ item }} global=yes
   with_items:
+    - npm
     - jsxhint
+    - gulp
+    - webpack

@@ -18,8 +18,9 @@ hosts:
         key-file: /etc/h2o/cert/dummy.key
     paths:
       /:
+        file.send-gzip: ON
         file.dir: /home/Ryo/webroot
-      /api:
+      /api/aws/v1:
         proxy.reverse.url: "http://127.0.0.1:8080/"
 
 
