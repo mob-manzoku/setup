@@ -42,6 +42,7 @@
 (el-get-bundle auto-complete)
 (el-get-bundle flycheck)
 (require 'flycheck)
+(add-hook 'after-init-hook #'global-flycheck-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;  Langage
@@ -49,32 +50,33 @@
 
 ;; React.js
 (el-get-bundle web-mode)
+(el-get-bundle js2-mode)
+(el-get-bundle json-mode)
+
 (add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
+
+;; disable jshint since we prefer eslint checking
+(setq-default flycheck-disabled-checkers
+  (append flycheck-disabled-checkers
+    '(javascript-jshint)))
+
+;; use eslint with web-mode for jsx files
+(flycheck-add-mode 'javascript-eslint 'web-mode)
+
+;; disable json-jsonlist checking for json files
+(setq-default flycheck-disabled-checkers
+  (append flycheck-disabled-checkers
+    '(json-jsonlist)))
+
 (defun my-web-mode-hook ()
-  "Hooks for Web mode."
-  (setq web-mode-attr-indent-offset nil)
+  "Hooks for Web mode. Adjust indents"
+  ;;; http://web-mode.org/
   (setq web-mode-markup-indent-offset 2)
   (setq web-mode-css-indent-offset 2)
-  (setq web-mode-code-indent-offset 2)
-  (setq web-mode-sql-indent-offset 2)
-  (setq indent-tabs-mode nil)
-  (setq tab-width 2))
+  (setq web-mode-code-indent-offset 2))
 
-(add-hook 'web-mode-hook 'my-web-mode-hook)
+(add-hook 'web-mode-hook  'my-web-mode-hook)
 
-(flycheck-define-checker jsxhint-checker
-  "A JSX syntax and style checker based on JSXHint."
-  :command ("jsxhint" source)
-  :error-patterns
-  ((error line-start (1+ nonl) ": line " line ", col " column ", " (message) line-end))
-  :modes (web-mode))
-
-(add-hook 'web-mode-hook
-          (lambda ()
-            (when (equal web-mode-content-type "jsx")
-              ;; enable flycheck
-              (flycheck-select-checker 'jsxhint-checker)
-              (flycheck-mode))))
 
 ;; Python
 

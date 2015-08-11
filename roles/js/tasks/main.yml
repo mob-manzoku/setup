@@ -6,3 +6,6 @@
     - jsxhint
     - gulp
     - webpack
+    - eslint
+    - babel-eslint
+    - eslint-plugin-react
