@@ -43,6 +43,7 @@
 (el-get-bundle flycheck)
 (require 'flycheck)
 (add-hook 'after-init-hook #'global-flycheck-mode)
+(el-get-bundle epc)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;  Langage
@@ -79,6 +80,10 @@
 
 
 ;; Python
+(el-get-bundle tkf/emacs-python-environment)
+(el-get-bundle tkf/emacs-jedi)
+(add-hook 'python-mode-hook 'jedi:setup)
+(setq jedi:complete-on-dot t)
 
 ;; Golang
 (el-get-bundle go-mode)

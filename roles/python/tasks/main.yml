@@ -1,0 +1,4 @@
+- pip: name={{ item }} state=present
+  with_items:
+    - flake8
+    - pylint
