@@ -84,6 +84,7 @@
 (el-get-bundle go-mode)
 (el-get-bundle go-autocomplete)
 (el-get-bundle go-eldoc)
+(setq gofmt-command "goimports")
 (add-hook 'before-save-hook 'gofmt-before-save)
 
 ;; Ansible

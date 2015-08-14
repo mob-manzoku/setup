@@ -19,6 +19,9 @@
 - shell: GOPATH=/usr/local/src/golang_gets /usr/local/go/bin/go get -u {{ item }}
   with_items:
     - github.com/nsf/gocode
+    - github.com/golang/lint/golint
+    - golang.org/x/tools/cmd/goimports
+    - golang.org/x/tools/cmd/vet
 
 - lineinfile:
     line: "export PATH=$PATH:/usr/local/go/bin:/usr/local/src/golang_gets/bin"
