@@ -19,6 +19,7 @@
     cmake \
     -DCMAKE_INSTALL_PREFIX=/usr/local/src/h2o_dist/h2o-{{ h2o_version }}
     -DWITH_BUNDLED_SSL=on
+    -DWITH_MRUBY=ON
     chdir=/tmp/h2o-{{ h2o_version }}
   when: not h2o_installed.stat.exists
 
