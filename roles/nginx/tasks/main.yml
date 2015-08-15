@@ -1,0 +1,45 @@
+- stat: path=/usr/local/src/nginx_dist/nginx-{{ nginx_version }}/sbin/nginx
+  register: nginx_installed
+
+- name: "Install nginx dependencies"
+  apt: name={{ item }} state=present
+  with_items:
+    - gcc
+    - make
+    - libpcre3
+    - libpcre3-dev
+    - zlib1g
+    - zlib1g-dev
+    - libssl-dev
+
+- get_url: url=http://nginx.org/download/nginx-{{ nginx_version }}.tar.gz dest=/tmp/
+  when: not nginx_installed.stat.exists
+
+- file: path=/usr/local/src/nginx_dist state=directory
+
+- unarchive: src=/tmp/nginx-{{ nginx_version }}.tar.gz dest=/tmp/ creates=yes copy=no
+  when: not nginx_installed.stat.exists
+
+- command: >-
+    ./configure
+    --prefix=/usr/local/src/nginx_dist/nginx-{{ nginx_version }}
+    --with-http_stub_status_module
+    --with-http_ssl_module
+    --with-http_spdy_module
+    --with-http_realip_module
+    chdir=/tmp/nginx-{{ nginx_version }}
+  when: not nginx_installed.stat.exists
+
+- command: make chdir=/tmp/nginx-{{ nginx_version }}
+  when: not nginx_installed.stat.exists
+
+- command: make install chdir=/tmp/nginx-{{ nginx_version }}
+  when: not nginx_installed.stat.exists
+
+- user: name=nginx uid=2001 home=/etc/nginx shell=/sbin/nologin createhome=no
+
+- file: src=/usr/local/src/nginx_dist/nginx-{{ nginx_version }} path=/usr/local/nginx state=link
+
+- file: path=/etc/nginx/ state=directory
+
+- copy: src=etc/init/nginx.conf dest=/etc/init/nginx.conf
