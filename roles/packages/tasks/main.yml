@@ -6,6 +6,25 @@
     - zsh
     - make
     - mysql-client-5.6
+    - git
+    - gcc
+
+- name: "Check pip2 already installed"
+  stat: path=/usr/local/bin/pip2
+  register: pip2_installed
+
+- name: "Check pip3 already installed"
+  stat: path=/usr/local/bin/pip3
+  register: pip3_installed
+
+- get_url: dest=/tmp/ url=https://raw.github.com/pypa/pip/master/contrib/get-pip.py
+  when: not pip2_installed.stat.exists or not pip3_installed.stat.exists
+
+- shell: python2 get-pip.py chdir=/tmp/
+  when: not pip2_installed.stat.exists
+
+- shell: python3 get-pip.py chdir=/tmp/
+  when: not pip3_installed.stat.exists
 
 - pip: name={{ item }} state=present executable=pip2
   with_items:

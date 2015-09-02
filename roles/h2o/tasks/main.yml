@@ -9,7 +9,7 @@
 - get_url: url=https://github.com/h2o/h2o/archive/v{{ h2o_version }}.tar.gz dest=/tmp/h2o-{{ h2o_version }}.tar.gz
   when: not h2o_installed.stat.exists
 
-- unarchive: src=/tmp/h2o-{{ h2o_version }}.tar.gz dest=/tmp/
+- unarchive: src=/tmp/h2o-{{ h2o_version }}.tar.gz dest=/tmp/ copy=no creates=yes
   when: not h2o_installed.stat.exists
 
 - file: path=/usr/local/src/h2o_dist/h2o-{{ h2o_version }} state=directory

@@ -14,6 +14,9 @@
     (goto-char (point-max))
     (eval-print-last-sexp)))
 
+;; key binds
+(global-set-key "\M-g" 'goto-line)
+
 ;; ファイル末にスペース
 (setq require-final-newline t)
 
@@ -94,3 +97,5 @@
 
 ;; Ansible
 (el-get-bundle yaml-mode)
+
+;;; init.el ends here

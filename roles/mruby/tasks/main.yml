@@ -4,13 +4,14 @@
 - apt: name={{ item }} state=latest
   with_items:
     - make
+    - gcc
     - ruby2.0
     - bison
 
 - get_url: url=https://github.com/mruby/mruby/archive/{{ mruby_version }}.tar.gz dest=/tmp/mruby-{{ mruby_version }}.tar.gz
   when: not mruby_installed.stat.exists
 
-- unarchive: src=/tmp/mruby-{{ mruby_version }}.tar.gz dest=/tmp/
+- unarchive: src=/tmp/mruby-{{ mruby_version }}.tar.gz dest=/tmp/ copy=no creates=yes
   when: not mruby_installed.stat.exists
 
 - file: path=/usr/local/src/mruby_dist/mruby-{{ mruby_version }} state=directory

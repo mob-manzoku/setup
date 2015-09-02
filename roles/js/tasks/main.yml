@@ -1,4 +1,9 @@
-- apt: name=npm
+- apt: name={{ item }}
+  with_items:
+    - nodejs
+    - npm
+
+- shell: update-alternatives --install /usr/bin/node node /usr/bin/nodejs 10
 
 - npm: name={{ item }} global=yes
   with_items:

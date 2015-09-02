@@ -9,7 +9,7 @@
 - file: path=/usr/local/src/golang_dist/go{{ go_version }} state=directory
   when: not golang_installed.stat.exists
 
-- unarchive: src=/tmp/go{{ go_version }}.linux-amd64.tar.gz dest=/usr/local/src/golang_dist/go{{ go_version }}
+- unarchive: src=/tmp/go{{ go_version }}.linux-amd64.tar.gz dest=/usr/local/src/golang_dist/go{{ go_version }} copy=no creates=yes
   when: not golang_installed.stat.exists
 
 - file: src=/usr/local/src/golang_dist/go{{ go_version }}/go path=/usr/local/go state=link
