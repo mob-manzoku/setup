@@ -1,9 +1,0 @@
-- hosts: monitoring
-  sudo: yes
-  roles:
-    - { tags: packages,     role: packages }
-    - { tags: golang,       role: golang, go_version: 1.5.1 }
-    - { tags: python,       role: python }
-    - { tags: dotfiles, role: dotfiles }
-
-    - { role: common-roles/set-timezone, timezone: Asia/Tokyo }

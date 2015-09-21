@@ -1,0 +1,11 @@
+- git: repo=https://github.com/sstephenson/rbenv.git
+       dest=~/.rbenv
+  sudo: no
+
+- git: repo=https://github.com/sstephenson/ruby-build.git
+       dest=~/.rbenv/plugins/ruby-build
+  sudo: no
+
+- file: path=~/.rbenv recurse=yes state=directory
+  changed_when: False
+  sudo: no

@@ -1,0 +1,31 @@
+- stat: path=/usr/lib/libmruby_core.a
+  register: mruby_installed
+
+- apt: name={{ item }} state=latest
+  with_items:
+    - make
+    - gcc
+    - ruby2.0
+    - bison
+
+- get_url: url=https://github.com/mruby/mruby/archive/{{ mruby_version }}.tar.gz dest=/tmp/mruby-{{ mruby_version }}.tar.gz
+  when: not mruby_installed.stat.exists
+
+- unarchive: src=/tmp/mruby-{{ mruby_version }}.tar.gz dest=/tmp/ copy=no creates=yes
+  when: not mruby_installed.stat.exists
+
+- file: path=/usr/local/src/mruby_dist/mruby-{{ mruby_version }} state=directory
+  when: not mruby_installed.stat.exists
+
+- command: make chdir=/tmp/mruby-{{ mruby_version }}
+  when: not mruby_installed.stat.exists
+
+- command: make chdir=/tmp/mruby-{{ mruby_version }}
+  when: not mruby_installed.stat.exists
+
+- shell: >-
+    cp build/host/lib/libmruby.a build/host/lib/libmruby_core.a /usr/lib/.
+    && cp -r include/* /usr/include/.
+  args:
+    chdir: /tmp/mruby-{{ mruby_version }}
+  when: not mruby_installed.stat.exists

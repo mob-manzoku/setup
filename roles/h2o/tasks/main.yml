@@ -1,0 +1,40 @@
+- stat: path=/usr/local/src/h2o_dist/h2o-{{ h2o_version }}/bin/h2o
+  register: h2o_installed
+
+- apt: name={{ item }} state=latest
+  with_items:
+    - cmake
+    - libssl-dev
+
+- get_url: url=https://github.com/h2o/h2o/archive/v{{ h2o_version }}.tar.gz dest=/tmp/h2o-{{ h2o_version }}.tar.gz
+  when: not h2o_installed.stat.exists
+
+- unarchive: src=/tmp/h2o-{{ h2o_version }}.tar.gz dest=/tmp/ copy=no creates=yes
+  when: not h2o_installed.stat.exists
+
+- file: path=/usr/local/src/h2o_dist/h2o-{{ h2o_version }} state=directory
+  when: not h2o_installed.stat.exists
+
+- command: >-
+    cmake \
+    -DCMAKE_INSTALL_PREFIX=/usr/local/src/h2o_dist/h2o-{{ h2o_version }}
+    -DWITH_BUNDLED_SSL=on
+    -DWITH_MRUBY=ON
+    chdir=/tmp/h2o-{{ h2o_version }}
+  when: not h2o_installed.stat.exists
+
+- command: make chdir=/tmp/h2o-{{ h2o_version }}
+  when: not h2o_installed.stat.exists
+
+- command: make install chdir=/tmp/h2o-{{ h2o_version }}
+  when: not h2o_installed.stat.exists
+
+- file: src=/usr/local/src/h2o_dist/h2o-{{ h2o_version }} path=/usr/local/h2o state=link
+
+- file: path=/etc/h2o/ state=directory
+
+- copy: src=etc/h2o/h2o.yml dest=/etc/h2o/h2o.yml mode=0666
+
+- copy: src=etc/init/h2o.conf dest=/etc/init/h2o.conf mode=0755
+
+- copy: src=etc/h2o/cert/ dest=/etc/h2o/cert/
