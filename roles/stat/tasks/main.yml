@@ -1,4 +1,0 @@
-- apt: name={{ item }} state=present
-  with_items:
-    - dstat
-    - iotop
