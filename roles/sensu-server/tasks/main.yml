@@ -1,0 +1,21 @@
+- get_url: url=http://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb dest=/tmp/
+
+- apt: deb=/tmp/erlang-solutions_1.0_all.deb dpkg_options="skip-same-version"
+
+- apt_key: url=http://www.rabbitmq.com/rabbitmq-signing-key-public.asc state=present
+
+- apt: update_cache=yes
+
+- apt: name={{ item }} state=present
+  with_items:
+    - redis-server
+    - erlang
+    - rabbitmq-server
+    - sensu
+    - ruby2.0
+
+- file: src=/usr/bin/ruby2.0 path=/usr/bin/ruby state=link
+
+- file: src=/usr/bin/gem2.0 path=/usr/bin/gem state=link
+
+- gem: executable=gem2.0 name=sensu-plugin

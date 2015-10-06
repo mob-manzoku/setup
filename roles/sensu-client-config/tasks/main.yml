@@ -1,0 +1,1 @@
+- copy: src=etc/sensu/ dest=/etc/sensu/

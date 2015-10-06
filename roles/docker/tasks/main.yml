@@ -1,0 +1,15 @@
+- name: "Check docker already installed"
+  stat: path=/usr/bin/docker
+  register: docker_installed
+
+- copy: src=deb/lxc-docker-1.6.0_1.6.0_amd64.deb dest=/tmp/lxc-docker-1.6.0_1.6.0_amd64.deb
+
+- apt: deb=/tmp/lxc-docker-1.6.0_1.6.0_amd64.deb
+  when: not docker_installed.stat.exists
+
+- user: name={{ item }} append=yes groups=docker
+  with_items: "{{users}}"
+
+- apt: name=python-pip
+
+- pip: name=docker-py version=1.0.0

@@ -1,0 +1,28 @@
+- file: path=/project/src/kibana state=directory mode=0777
+
+- stat: path=/project/src/kibana/kibana-{{ kibana_version }}-linux-x64
+  register: kibana_deployed
+
+- get_url: url=https://download.elasticsearch.org/kibana/kibana/kibana-{{ kibana_version }}-linux-x64.tar.gz dest=/tmp/kibana-{{ kibana_version }}-linux-x64.tar.gz
+
+- unarchive: src=/tmp/kibana-{{ kibana_version }}-linux-x64.tar.gz dest=/project/src/kibana/ creates=yes copy=no
+  when: not kibana_deployed.stat.exists
+
+- file: state=link src=/project/src/kibana/kibana-{{ kibana_version }}-linux-x64 dest=/project/apps/kibana mode=0777
+
+- copy: src=kibana.yml dest=/project/apps/kibana/config/kibana.yml
+
+- docker:
+    name: "kibana"
+    image: ubuntu:trusty
+    state: reloaded
+    expose: 5601
+    ports:
+      - "5601:5601"
+    volumes:
+      - /project/apps/kibana:/kibana
+      - "/project/apps/kibana/config/kibana.yml:/kibana/config/kibana.yml"
+    command: /kibana/bin/kibana
+    restart_policy: always
+    restart_policy_retry: 16
+  with_items: projects

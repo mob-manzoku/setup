@@ -1,0 +1,25 @@
+{
+    "rabbitmq": {
+	"host": "localhost",
+	"vhost": "/sensu",
+	"user": "sensu",
+	"password": "secret"
+    },
+    "redis": {
+	"host": "localhost"
+    },
+    "api": {
+	"host": "localhost",
+	"port": 4567
+    },
+    "handlers": {
+	"default": {
+	    "type": "pipe",
+	    "command": "cat"
+	},
+	"elasticsearch-metrics": {
+	    "type": "pipe",
+	    "command": "/etc/sensu/handlers/metrics/elasticsearch-metrics.rb"
+	}
+    }
+}

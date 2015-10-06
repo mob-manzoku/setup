@@ -1,0 +1,8 @@
+{
+  "slack": {
+    "webhook_url": "https://hooks.slack.com/services/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",
+    "channel": "#general",
+    "bot_name": "alert",
+    "markdown_enabled": false
+  }
+}

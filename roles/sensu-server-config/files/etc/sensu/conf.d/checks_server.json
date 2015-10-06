@@ -1,0 +1,70 @@
+{
+    "checks": {
+	"Check_Uchiwa": {
+            "command": "/etc/sensu/plugins/uchiwa-health.rb",
+            "handlers": ["slack"],
+            "subscribers": [
+                "uchiwa"
+            ],
+            "interval": 60,
+            "refresh": 3600,
+            "occurrences": 3
+        },
+	"Check_LoadAvg": {
+            "command": "/etc/sensu/plugins/check-load.rb -w 3,3,3 -c 4,4,4",
+            "handlers": ["slack"],
+            "subscribers": [
+                "linux"
+            ],
+            "interval": 60,
+            "refresh": 3600,
+            "occurrences": 3
+        },
+        "Check_Memory_Usage": {
+            "command": "/etc/sensu/plugins/check-memory-pcnt.sh -w 80 -c 90",
+            "handlers": ["slack"],
+            "subscribers": [
+                "linux"
+            ],
+            "interval": 60,
+            "refresh": 3600
+        },
+        "Check_Disk_Usage": {
+            "command": "/etc/sensu/plugins/check-disk.rb -t ext3,ext4 -w 80 -c 90 -W 80",
+            "handlers": ["slack"],
+            "subscribers": [
+                "linux"
+            ],
+            "interval": 60,
+            "refresh": 3600
+        },
+        "Check_SSH_Process": {
+            "command": "/etc/sensu/plugins/check-procs.rb -p '^/usr/sbin/sshd'",
+            "handlers": ["slack"],
+            "subscribers": [
+                "linux"
+            ],
+            "interval": 60,
+            "refresh": 3600
+        },
+        "Check_TCP_22": {
+            "command": "/etc/sensu/plugins/check-banner.rb -H 127.0.0.1 -p 22 -q 'SSH' -t 3",
+            "handlers": ["slack"],
+            "subscribers": [
+                "linux"
+            ],
+            "interval": 60,
+            "refresh": 3600
+        },
+        "metrics_disk_usage": {
+	    "type": "metric",
+            "command": "/etc/sensu/plugins/disk-usage-metrics.rb",
+            "handlers": ["elasticsearch-metrics"],
+            "subscribers": [
+                "linux"
+            ],
+            "interval": 60,
+            "refresh": 3600
+        }
+    }
+}

@@ -1,4 +1,4 @@
-- user: name=ubuntu shell=/usr/bin/zsh
+#- user: name=ubuntu shell=/usr/bin/zsh
 
 - copy: src={{ item }} dest=~/.{{ item }}
   with_items:

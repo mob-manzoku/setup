@@ -56,6 +56,7 @@
 (el-get-bundle web-mode)
 (el-get-bundle js2-mode)
 (el-get-bundle json-mode)
+(el-get-bundle tern-mode)
 
 (add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
 
@@ -97,5 +98,6 @@
 
 ;; Ansible
 (el-get-bundle yaml-mode)
+(el-get-bundle nginx-mode)
 
 ;;; init.el ends here

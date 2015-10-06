@@ -1,0 +1,12 @@
+- file: path=/project/apps/elasticsearch/mappings state=directory
+
+- copy: src=mapping.sh dest=/project/apps/elasticsearch/mappings mode=0755
+
+- copy: src={{ item }}.json dest=/project/apps/elasticsearch/mappings
+  with_items:
+    - disk_usage
+  register: mappingfile
+
+- shell: ./mapping.sh "{{ item.item }}" chdir=/project/apps/elasticsearch/mappings
+  when: item.changed
+  with_items: mappingfile.results

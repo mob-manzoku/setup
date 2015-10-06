@@ -1,0 +1,13 @@
+- hosts: bastion
+  sudo: yes
+  vars:
+    users:
+      - mob-manzoku
+      - Ryo
+  roles:
+    - { tags: uchiwa, role: uchiwa }
+    - { tags: es,       role: elasticsearch }
+    - { tags: kibana, role: kibana, kibana_version: 4.1.1 }
+    - { tags: sensu, role: sensu-server }
+    - { tags: s, role: sensu-server-config }
+    - { tags: m, role: elasticsearch-mappings }

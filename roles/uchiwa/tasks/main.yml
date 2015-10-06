@@ -1,0 +1,19 @@
+- file: path=/project/app state=directory mode=0777
+
+#- git: repo=https://github.com/sensu/uchiwa.git
+#       dest=/project/app/uchiwa
+
+- file: path=/project/app/uchiwa-config state=directory mode=0777
+
+- copy: src=config.json dest=/project/app/uchiwa-config/config.json
+
+- docker:
+    name: uchiwa
+    image: uchiwa/uchiwa
+    state: reloaded
+    ports:
+      - "3000:3000"
+    volumes:
+      - /project/app/uchiwa-config:/config
+    restart_policy: always
+    restart_policy_retry: 16

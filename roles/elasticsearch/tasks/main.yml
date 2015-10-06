@@ -1,0 +1,24 @@
+- file: path=/project/apps/elasticsearch state=directory mode=0777
+
+- file: path=/project/apps/elasticsearch/config state=directory mode=0777
+
+- file: path=/project/apps/elasticsearch/data state=directory mode=0777
+
+- copy: src=elasticsearch.yml dest=/project/apps/elasticsearch/config/elasticsearch.yml mode=0777
+
+- docker:
+    name: elasticsearch
+    image: elasticsearch
+    state: reloaded
+    env:
+      ES_MIN_MEM: 1g
+      ES_MAX_MEM: 3g
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - /project/apps/elasticsearch/config:/usr/share/elasticsearch/config
+      - /project/apps/elasticsearch/data:/usr/share/elasticsearch/data
+    command: /usr/share/elasticsearch/bin/elasticsearch -Des.config=/usr/share/elasticsearch/config/elasticsearch.yml
+    restart_policy: always
+    restart_policy_retry: 16

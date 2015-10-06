@@ -1,0 +1,14 @@
+path:
+  logs: /usr/share/elasticsearch/data/log
+  data: /usr/share/elasticsearch/data/data
+
+bootstrap:
+  mlockall: true
+
+threadpool:
+  index:
+    queue_size: 200
+  search:
+    type: fixed
+    size: 50
+    queue_size: 10000

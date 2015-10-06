@@ -1,0 +1,19 @@
+{
+    "template" : "sensu-metrics*",
+    "mappings" : {
+	"disk_usage_metrics" : {
+            "properties" : {
+		"@timestamp" : { "type":"date", "format":"dateOptionalTime" },
+		"client" : {type: "string"},
+		"status": {type: "long"},
+		"address": {type: "string"},
+		"check_name": {type: "string"},
+		"occurrences": {type: "long"},
+		"command": {type: "string"},
+		"key": {type: "string"}
+		"value": {type: "float"},
+          }
+        }
+      }
+    }
+  }

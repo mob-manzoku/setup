@@ -1,0 +1,16 @@
+{
+  "handlers": {
+      "default": {
+	  "type": "pipe",
+	  "command": "cat"
+      },
+      "slack": {
+	  "type": "pipe",
+	  "command": "/etc/sensu/handlers/slack.rb"
+      },
+      "elasticsearch-metrics":{
+	  "type": "pipe",
+	  "command": "/etc/sensu/handlers/elasticsearch-metrics.rb"
+      }
+  }
+}

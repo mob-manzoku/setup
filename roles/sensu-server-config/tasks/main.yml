@@ -1,0 +1,5 @@
+- copy: src=etc/sensu/ dest=/etc/sensu/ mode=0755
+
+- service: name=sensu-client state=restarted
+
+- service: name=sensu-server state=restarted
